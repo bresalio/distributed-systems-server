@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+	xmlns:int-file="http://www.springframework.org/schema/integration/file"
+	xmlns:int-http="http://www.springframework.org/schema/integration/http"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/integration
+        http://www.springframework.org/schema/integration/spring-integration-4.1.xsd
+        http://www.springframework.org/schema/integration/stream
+        http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd
+        http://www.springframework.org/schema/integration/http
+        http://www.springframework.org/schema/integration/http/spring-integration-http-4.1.xsd
+        ">
+
+	<int:poller default="true" fixed-delay="50" />
+
+	<int:gateway service-interface="gateway.OmdbGateway"
+		id="omdbGateway">
+		<int:method name="getOmdbFilmData" request-channel="GetOmdbFilmDataChannel"
+			request-timeout="1000" />
+	</int:gateway>
+	
+	<int:channel id="GetOmdbFilmDataChannel"/>
+
+	<int-stream:stdout-channel-adapter
+		id="stdOutAdapter" channel="stdOutChannel" append-newline="true" />
+	<int:channel id="stdOutChannel" />
+	
+	<int-http:outbound-gateway request-channel="GetOmdbFilmDataChannel"
+		url="http://www.omdbapi.com/?apikey=ef99003c&amp;t={t}"
+		http-method="GET"
+		expected-response-type="model.OmdbFilm">
+		<int-http:uri-variable name="t" expression="payload" />
+	</int-http:outbound-gateway>
+
+</beans>
