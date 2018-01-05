@@ -95,8 +95,12 @@ public class DistributedSystemsController {
 	@RequestMapping(value = "/getOmdbFilmData")
     @ResponseBody
     public Film getOmdbFilmData(@RequestParam("title") String filmTitle) {
-        OmdbFilm omdbFilm = gateway.getOmdbFilmData(filmTitle);
-        return service.convertOmdbFilm(omdbFilm);
+		try {
+	        OmdbFilm omdbFilm = gateway.getOmdbFilmData(filmTitle);
+	        return service.convertOmdbFilm(omdbFilm);
+		} catch (Exception e) {
+			return service.emptyFilmData();
+		}
     }
 	
 }

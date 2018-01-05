@@ -119,6 +119,10 @@ public class ServiceImpl implements ServiceInterface {
 		return new Film(omdbFilm);
 	}
 	
+	public Film emptyFilmData() {
+		return new Film();
+	}
+	
 	private DaoOpinion switchOpinion(Opinion opinion) {
 		switch (opinion) {
 		case VERY_BAD: {

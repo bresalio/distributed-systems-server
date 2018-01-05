@@ -11,6 +11,15 @@ public class Film {
 	private int minutes;
 	private int publicationYear;
 	
+	public Film() {
+		this.title = null;
+		this.genre = null;
+		this.director = null;
+		this.mainActors = null;
+		this.minutes = 0;
+		this.publicationYear = 0;
+	}
+	
 	public Film(String title, String genre, String director,
 			String[] mainActors, int minutes, int publicationYear) {
 		this.title = title;

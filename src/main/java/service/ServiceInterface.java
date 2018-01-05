@@ -19,5 +19,6 @@ public interface ServiceInterface {
 	Collection<Rating> getRatingsOfFilm(String filmTitle);
 	Opinion getAverageRatingOfFilm(String filmTitle);
 	Film convertOmdbFilm(OmdbFilm omdbFilm);
+	Film emptyFilmData();
 	
 }
