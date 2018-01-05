@@ -6,65 +6,65 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import model.Film;
-import model.Opinion;
-import model.Rating;
+import modelForDao.DaoFilm;
+import modelForDao.DaoOpinion;
+import modelForDao.DaoRating;
 
 public class DaoImpl implements DaoInterface {
 	
-	private Collection<Film> films = new ArrayList<Film>();
-	private Collection<Rating> ratings = new ArrayList<Rating>();
+	private Collection<DaoFilm> daoFilms = new ArrayList<DaoFilm>();
+	private Collection<DaoRating> daoRatings = new ArrayList<DaoRating>();
 	
-	private Map<Opinion, Integer> opinionsAsIntValues = new HashMap<Opinion, Integer>();
+	private Map<DaoOpinion, Integer> opinionsAsIntValues = new HashMap<DaoOpinion, Integer>();
 	
 	public DaoImpl() {
-		films.add(new Film("Once Upon a Time in the West", "western", "Sergio Leone", new String[] {"Henry Fonda", "Claudia Cardinale"}, 171, 1968));
-		films.add(new Film("Django Unchained", "western", "Quentin Tarantino", new String[] {"Jamie Foxx", "Christoph Waltz", "Leonardo DiCaprio"}, 165, 2012));
-		films.add(new Film("Titanic", "drama", "James Cameron", new String[] {"Leonardo DiCaprio", "Kate Winslet"}, 194, 1997));
+		daoFilms.add(new DaoFilm("Once Upon a Time in the West", "western", "Sergio Leone", new String[] {"Claudia Cardinale", "Henry Fonda", "Jason Robards", "Charles Bronson"}, 171, 1968));
+		daoFilms.add(new DaoFilm("Django Unchained", "western", "Quentin Tarantino", new String[] {"Jamie Foxx", "Christoph Waltz", "Leonardo DiCaprio", "Kerry Washington"}, 165, 2012));
+		daoFilms.add(new DaoFilm("Titanic", "drama", "James Cameron", new String[] {"Leonardo DiCaprio", "Kate Winslet", "Billy Zane", "Kathy Bates"}, 194, 1997));
 		
-		opinionsAsIntValues.put(Opinion.VERY_BAD, 1);
-		opinionsAsIntValues.put(Opinion.RATHER_BAD, 2);
-		opinionsAsIntValues.put(Opinion.NEUTRAL, 3);
-		opinionsAsIntValues.put(Opinion.RATHER_GOOD, 4);
-		opinionsAsIntValues.put(Opinion.VERY_GOOD, 5);
-		opinionsAsIntValues.put(Opinion.NOT_FOUND, 0);
+		opinionsAsIntValues.put(DaoOpinion.VERY_BAD, 1);
+		opinionsAsIntValues.put(DaoOpinion.RATHER_BAD, 2);
+		opinionsAsIntValues.put(DaoOpinion.NEUTRAL, 3);
+		opinionsAsIntValues.put(DaoOpinion.RATHER_GOOD, 4);
+		opinionsAsIntValues.put(DaoOpinion.VERY_GOOD, 5);
+		opinionsAsIntValues.put(DaoOpinion.NOT_FOUND, 0);
 	}
 
-	public Collection<Film> getAllFilms() {
-		return films;
+	public Collection<DaoFilm> getAllFilms() {
+		return daoFilms;
 	}
 
-	public Collection<Film> getAllFilmsOfGenre(String genreName) {
-		List<Film> results = new ArrayList<Film>();
+	public Collection<DaoFilm> getAllFilmsOfGenre(String genreName) {
+		List<DaoFilm> results = new ArrayList<DaoFilm>();
 		
-		for (Film film : films) {
-			if (film.getGenre().equalsIgnoreCase(genreName)) {
-				results.add(film);
+		for (DaoFilm daoFilm : daoFilms) {
+			if (daoFilm.getGenre().equalsIgnoreCase(genreName)) {
+				results.add(daoFilm);
 			}
 		}
 		
 		return results;
 	}
 
-	public Collection<Film> getAllFilmsOfDirector(String directorName) {
-		List<Film> results = new ArrayList<Film>();
+	public Collection<DaoFilm> getAllFilmsOfDirector(String directorName) {
+		List<DaoFilm> results = new ArrayList<DaoFilm>();
 		
-		for (Film film : films) {
-			if (film.getDirector().equalsIgnoreCase(directorName)) {
-				results.add(film);
+		for (DaoFilm daoFilm : daoFilms) {
+			if (daoFilm.getDirector().equalsIgnoreCase(directorName)) {
+				results.add(daoFilm);
 			}
 		}
 		
 		return results;
 	}
 
-	public Collection<Film> getAllFilmsOfActor(String actorName) {
-		List<Film> results = new ArrayList<Film>();
+	public Collection<DaoFilm> getAllFilmsOfActor(String actorName) {
+		List<DaoFilm> results = new ArrayList<DaoFilm>();
 		
-		for (Film film : films) {
-			for (String actor : film.getMainActors()) {
+		for (DaoFilm daoFilm : daoFilms) {
+			for (String actor : daoFilm.getMainActors()) {
 				if (actor.equalsIgnoreCase(actorName)) {
-					results.add(film);
+					results.add(daoFilm);
 					break;
 				}
 			}
@@ -74,69 +74,75 @@ public class DaoImpl implements DaoInterface {
 	}
 	
 
-	public Collection<Film> getAllFilmsBetweenLength(int minLengthInclusive, int maxLengthInclusive) {
-		List<Film> results = new ArrayList<Film>();
+	public Collection<DaoFilm> getAllFilmsBetweenLength(int minLengthInclusive, int maxLengthInclusive) {
+		List<DaoFilm> results = new ArrayList<DaoFilm>();
 		
-		for (Film film : films) {
-			int length = film.getMinutes();
+		if (minLengthInclusive > maxLengthInclusive) {
+			int tempMin = maxLengthInclusive;
+			maxLengthInclusive = minLengthInclusive;
+			minLengthInclusive = tempMin;
+		}
+		
+		for (DaoFilm daoFilm : daoFilms) {
+			int length = daoFilm.getMinutes();
 			if (length >= minLengthInclusive && length <= maxLengthInclusive) {
-				results.add(film);
+				results.add(daoFilm);
 			}
 		}
 		
 		return results;
 	}
 
-	public Film getFilmData(String title) {
-		for (Film film : films) {
-			if (film.getTitle().equalsIgnoreCase(title)) {
-				return film;
+	public DaoFilm getFilmData(String title) {
+		for (DaoFilm daoFilm : daoFilms) {
+			if (daoFilm.getTitle().equalsIgnoreCase(title)) {
+				return daoFilm;
 			}
 		}
-		return new Film(null, null, null, null, 0, 0);
+		return new DaoFilm(null, null, null, null, 0, 0);
 	}
 
-	public boolean addRating(String filmTitle, Opinion opinion) {
-		Film film = getFilmData(filmTitle);
-		if (film.getTitle() == null) {
+	public boolean addRating(String filmTitle, DaoOpinion daoOpinion) {
+		DaoFilm daoFilm = getFilmData(filmTitle);
+		if (daoFilm.getTitle() == null) {
 			return false;
 		} else {
-			ratings.add(new Rating(film, opinion));
+			daoRatings.add(new DaoRating(daoFilm, daoOpinion));
 			return true;
 		}
 	}
 	
-	public Collection<Rating> getRatingsOfFilm(String filmTitle) {
-		List<Rating> ratingsOfFilm = new ArrayList<Rating>();
-		for (Rating rating : ratings) {
-			if (rating.getFilmTitle().equalsIgnoreCase(filmTitle)) {
-				ratingsOfFilm.add(rating);
+	public Collection<DaoRating> getRatingsOfFilm(String filmTitle) {
+		List<DaoRating> ratingsOfFilm = new ArrayList<DaoRating>();
+		for (DaoRating daoRating : daoRatings) {
+			if (daoRating.getFilmTitle().equalsIgnoreCase(filmTitle)) {
+				ratingsOfFilm.add(daoRating);
 			}
 		}
 		return ratingsOfFilm;
 	}
 	
-	public Opinion getAverageRatingOfFilm(String filmTitle) {
-		Collection<Rating> ratingsOfFilm = getRatingsOfFilm(filmTitle);
+	public DaoOpinion getAverageRatingOfFilm(String filmTitle) {
+		Collection<DaoRating> ratingsOfFilm = getRatingsOfFilm(filmTitle);
 		if (ratingsOfFilm.size() == 0) {
-			return Opinion.NOT_FOUND;
+			return DaoOpinion.NOT_FOUND;
 		} else {
 			int sum = 0;
-			for (Rating rating : ratingsOfFilm) {
-				sum += opinionsAsIntValues.get(rating.getOpinion());
+			for (DaoRating daoRating : ratingsOfFilm) {
+				sum += opinionsAsIntValues.get(daoRating.getOpinion());
 			}
 			double average = ((double) sum) / ((double) ratingsOfFilm.size());
 			return getOpinionFromAverageRating(average);
 		}
 	}
 	
-	private Opinion getOpinionFromAverageRating(double average) {
+	private DaoOpinion getOpinionFromAverageRating(double average) {
 		int averageInt = (int) Math.round(average);
-		for (Opinion opinion : opinionsAsIntValues.keySet()) {
-			if (opinionsAsIntValues.get(opinion) == averageInt) {
-				return opinion;
+		for (DaoOpinion daoOpinion : opinionsAsIntValues.keySet()) {
+			if (opinionsAsIntValues.get(daoOpinion) == averageInt) {
+				return daoOpinion;
 			}
-		} return Opinion.NOT_FOUND;
+		} return DaoOpinion.NOT_FOUND;
 	}
 
 }

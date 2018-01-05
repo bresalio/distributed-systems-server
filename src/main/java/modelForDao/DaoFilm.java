@@ -1,8 +1,6 @@
-package modelForControllerOut;
+package modelForDao;
 
-import modelForControllerIn.OmdbFilm;
-
-public class Film {
+public class DaoFilm {
 
 	private String title;
 	private String genre;
@@ -11,7 +9,7 @@ public class Film {
 	private int minutes;
 	private int publicationYear;
 	
-	public Film(String title, String genre, String director,
+	public DaoFilm(String title, String genre, String director,
 			String[] mainActors, int minutes, int publicationYear) {
 		this.title = title;
 		this.genre = genre;
@@ -19,24 +17,6 @@ public class Film {
 		this.mainActors = mainActors;
 		this.minutes = minutes;
 		this.publicationYear = publicationYear;
-	}
-	
-	public Film(OmdbFilm film) {
-		if (!film.isResponse()) {
-			this.title = null;
-			this.genre = null;
-			this.director = null;
-			this.mainActors = null;
-			this.minutes = 0;
-			this.publicationYear = 0;
-		} else {
-			this.title = film.getTitle();
-			this.genre = film.getGenre().split(",\\s")[0].toLowerCase();
-			this.director = film.getDirector();
-			this.mainActors = film.getActors().split(",\\s");
-			this.minutes = Integer.parseInt(film.getRuntime().substring(0, film.getRuntime().length() - 4));
-			this.publicationYear = film.getYear();
-		}
 	}
 
 	public String getTitle() {
@@ -96,7 +76,7 @@ public class Film {
 			return false;
 		}
 		
-		Film other = (Film) obj;
+		DaoFilm other = (DaoFilm) obj;
 		if (title == null) {
 			return other.title == null;
 		} else {

@@ -4,10 +4,10 @@ import gateway.OmdbGateway;
 
 import java.util.Collection;
 
-import model.Film;
-import model.OmdbFilm;
-import model.Opinion;
-import model.Rating;
+import modelForControllerIn.OmdbFilm;
+import modelForControllerOut.Film;
+import modelForControllerOut.Opinion;
+import modelForControllerOut.Rating;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -74,6 +74,9 @@ public class DistributedSystemsController {
 	@RequestMapping(value = "/addRating")
     @ResponseBody
     public boolean addRating(@RequestParam("title") String filmTitle, @RequestHeader("opinion") Opinion opinion) {
+		if (opinion == Opinion.NOT_FOUND) {
+			return false;
+		}
         return service.addRating(filmTitle, opinion);
     }
 	

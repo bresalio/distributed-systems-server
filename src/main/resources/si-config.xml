@@ -32,7 +32,7 @@
 	<int-http:outbound-gateway request-channel="GetOmdbFilmDataChannel"
 		url="http://www.omdbapi.com/?apikey=ef99003c&amp;t={t}"
 		http-method="GET"
-		expected-response-type="model.OmdbFilm">
+		expected-response-type="modelForControllerIn.OmdbFilm">
 		<int-http:uri-variable name="t" expression="payload" />
 	</int-http:outbound-gateway>
 

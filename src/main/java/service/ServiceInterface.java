@@ -2,10 +2,10 @@ package service;
 
 import java.util.Collection;
 
-import model.Film;
-import model.OmdbFilm;
-import model.Opinion;
-import model.Rating;
+import modelForControllerIn.OmdbFilm;
+import modelForControllerOut.Film;
+import modelForControllerOut.Opinion;
+import modelForControllerOut.Rating;
 
 public interface ServiceInterface {
 

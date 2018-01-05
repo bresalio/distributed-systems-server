@@ -1,6 +1,6 @@
-package modelForControllerOut;
+package modelForDao;
 
-public enum Opinion {
+public enum DaoOpinion {
 
 	VERY_BAD,
 	RATHER_BAD,

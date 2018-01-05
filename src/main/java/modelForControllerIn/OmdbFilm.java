@@ -1,10 +1,10 @@
-package model;
+package modelForControllerIn;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class OmdbFilm {
 	
-	private boolean Response = true;
+	private boolean response = true;
 	
 	private String title;
 	private String genre;
@@ -16,12 +16,12 @@ public class OmdbFilm {
 	public OmdbFilm() {}
 
 	public boolean isResponse() {
-		return Response;
+		return response;
 	}
 	
 	@JsonProperty("Response")
 	public void setResponse(boolean response) {
-		Response = response;
+		this.response = response;
 	}
 
 	public String getTitle() {

@@ -1,4 +1,4 @@
-package model;
+package modelForControllerOut;
 
 public class Rating {
 

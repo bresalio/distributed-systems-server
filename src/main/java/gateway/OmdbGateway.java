@@ -1,6 +1,6 @@
 package gateway;
 
-import model.OmdbFilm;
+import modelForControllerIn.OmdbFilm;
 
 import org.springframework.integration.annotation.Payload;
 

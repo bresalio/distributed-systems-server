@@ -2,20 +2,20 @@ package dao;
 
 import java.util.Collection;
 
-import model.Film;
-import model.Opinion;
-import model.Rating;
+import modelForDao.DaoFilm;
+import modelForDao.DaoOpinion;
+import modelForDao.DaoRating;
 
 public interface DaoInterface {
 	
-	Collection<Film> getAllFilms();
-	Collection<Film> getAllFilmsOfGenre(String genreName);
-	Collection<Film> getAllFilmsOfDirector(String directorName);
-	Collection<Film> getAllFilmsOfActor(String actorName);
-	Collection<Film> getAllFilmsBetweenLength(int minLengthInclusive, int maxLengthInclusive);
-	Film getFilmData(String title);
-	boolean addRating(String filmTitle, Opinion opinion);
-	Collection<Rating> getRatingsOfFilm(String filmTitle);
-	Opinion getAverageRatingOfFilm(String filmTitle);
+	Collection<DaoFilm> getAllFilms();
+	Collection<DaoFilm> getAllFilmsOfGenre(String genreName);
+	Collection<DaoFilm> getAllFilmsOfDirector(String directorName);
+	Collection<DaoFilm> getAllFilmsOfActor(String actorName);
+	Collection<DaoFilm> getAllFilmsBetweenLength(int minLengthInclusive, int maxLengthInclusive);
+	DaoFilm getFilmData(String title);
+	boolean addRating(String filmTitle, DaoOpinion daoOpinion);
+	Collection<DaoRating> getRatingsOfFilm(String filmTitle);
+	DaoOpinion getAverageRatingOfFilm(String filmTitle);
 
 }
