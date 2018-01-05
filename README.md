@@ -19,15 +19,24 @@ There are multiple ways to deploy it on a Tomcat instance then; the three most i
 * deploying the .war (Web Archive) file directly.
 
 The following steps are going to describe the third option (based on [this] (http://www.baeldung.com/tomcat-deploy-war) article).
-We assume that you already have a deployable .war file, and an installed Tomcat instance.
-(For seeing one way of generating the .war from the source code, e.g. with Eclipse, follow [this] (http://www.codejava.net/ides/eclipse/eclipse-create-deployable-war-file-for-java-web-application) guide.
-For help in Tomcat setup and installation, read [this] (http://www.baeldung.com/tomcat) article.)
+We assume that you already have installed Tomcat and Maven on your computer.
+(For help in Tomcat setup and installation, read [this] (http://www.baeldung.com/tomcat) article.)
 
+How to create a .war file from the downloaded source code:
+* Open command line and navigate to the root folder of the downloaded project.
+* Type the following command:
+```
+mvn clean package
+```
+When the build ended with success, you should find the generated .war file in the "/target" folder
+(the file name ends in "-0.0.1-SNAPSHOT" indicating the version; you can rename the file).
+
+How to deploy on Tomcat:
 * Find where the $CATALINA_HOME variable of your Tomcat instance points to, and open "webapps" folder in the directory.
-* Drag and drop the .war archive here.
+* Drag and drop the .war file here.
 * The server will deploy the project the next time it is started. (You should restart Tomcat.)
 
-From now on, you should be able to get access to the endpoints like this:
+From now on, if the webapp is deployed on Tomcat, you should be able to get access to the endpoints like this:
 ```
 http://<host:port>/distributed-systems-server/<endpoint>
 ```
@@ -64,28 +73,28 @@ Returns the descriptions of all dummy films in a list.
 
 * getAllFilmsOfGenre, param: genre
 
-Returns the decriptions of all dummy films in a list, where the genre is equal to the specified param (e.g. "western", "drama").
+Returns the descriptions of all dummy films in a list, where the genre is equal to the specified param (e.g. "western", "drama").
 
 * getAllFilmsOfDirector, param: director
 
-Returns the decriptions of all dummy films in a list, where the director is equal to the specified param.
+Returns the descriptions of all dummy films in a list, where the director is equal to the specified param.
 One film has exactly one director, but one director might have multiple films.
 
 * getAllFilmsOfActor, param: actor
 
-Returns the decriptions of all dummy films in a list, where an actor is equal to the specified param.
+Returns the descriptions of all dummy films in a list, where an actor is equal to the specified param.
 One actor might have played in multiple films, and one film might have multiple actors (although only the main characters are listed).
 
 * getAllFilmsBetweenLength
 
-Returns the decriptions of all dummy films in a list, that are between the specified min and max length values (inclusive, in minutes).
+Returns the descriptions of all dummy films in a list, that are between the specified min and max length values (inclusive, in minutes).
 If the given min value is accidentally greater than the given max value, the values are reverted.
 
 Required request headers: "min", "max" - integers
 
 * getFilmData, param: title
 
-Returns the decription of the given film if it exists in the dummy list. If not, the fields indicate this with null values.
+Returns the description of the given film if it exists in the dummy list. If not, the fields indicate this with null values.
 
 * addRating/{title}
 
